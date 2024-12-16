@@ -15,11 +15,12 @@
       </ifModule>
   ]]></description>
   <transformations>
-    <transformation query="copy" writer="FileIo" source="templates/clean/htaccess.dist" artifact=".htaccess"/>
-    <transformation query="copy" writer="FileIo" source="templates/clean/images" artifact="images"/>
+    <!--transformation query="copy" writer="FileIo" source="templates/clean/images" artifact="images"/>
     <transformation query="copy" writer="FileIo" source="templates/clean/css" artifact="css"/>
     <transformation query="copy" writer="FileIo" source="templates/clean/js" artifact="js"/>
-    <transformation query="copy" writer="FileIo" source="templates/clean/font" artifact="font"/>
+    <transformation query="copy" writer="FileIo" source="templates/clean/font" artifact="font"/-->
+    <transformation writer="FileIo" query="copy" source="templates/clean/htaccess.dist" artifact=".htaccess"/>
+    <transformation writer="FileIo" query="copy" source="templates/clean/resources" artifact="resources"/>
     <transformation writer="twig" query="namespace" source="templates/clean/namespace.html.twig" artifact="index.html"/>
     <transformation writer="twig" query="indexes.namespaces" source="templates/clean/namespace.html.twig" />
     <transformation writer="twig" query="indexes.classes" source="templates/clean/class.html.twig" />

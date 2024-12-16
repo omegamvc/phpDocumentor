@@ -3,14 +3,14 @@
         <div class="span8 content class">
             <a id="constant_{{ constant.name }}" name="constant_{{ constant.name }}" class="anchor"></a>
             <article id="constant_{{ constant.name }}" class="constant">
-                <h3 class="{% if constant.deprecated %}deprecated{% endif %}">{{ constant.name }}</h3>
-                <pre class="signature">{{ constant.name }} = {{ constant.value }}{% if not (constant.types is empty) %} : {{ constant.types|join('|') }}{% endif %}</pre>
+                <h3 class="{{ constant.visibility }} {% if constant.deprecated %}deprecated{% endif %}">{{ constant.name }}</h3>
+                <pre class="signature">{{ constant.name }} = {{ constant.value }}{% if not (constant.type is empty) %} : {{ constant.type|route|join('|') }}{% endif %}</pre>
                 <p><em>{{ constant.summary }}</em></p>
                 {{ constant.description|markdown|raw }}
             </article>
         </div>
         <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
+            <h1><i class="fas-solid fa-arrow-down"></i></h1>
             {% if constant.deprecated %}
                 <aside class="alert alert-block alert-error">
                     <h4>Deprecated</h4>
@@ -26,7 +26,7 @@
                     <dt>Inherited from</dt>
                     <dd><a href="{{ constant.parent|route('url') }}"><div class="path-wrapper">{{ constant.parent.fullyQualifiedStructuralElementName }}</div></a></dd>
                 {% endif %}
-                {% for tagName,tags in constant.tags if tagName in ['link', 'see'] %}
+                {% for tag_name, tags in constant.tags if tag_name in ['link', 'see'] %}
                     {% if loop.first %}
                         <dt>See also</dt>
                     {% endif %}
@@ -34,7 +34,7 @@
                         <dd><a href="{{ tag.reference|route('url') ?: tag.link }}"><span class="namespace-wrapper">{{ tag.description ?: tag.reference }}</span></a></dd>
                     {% endfor %}
                 {% endfor %}
-                {% for tagName,tags in constant.tags if tagName in ['uses'] %}
+                {% for tag_name, tags in constant.tags if tag_name in ['uses'] %}
                     {% if loop.first %}
                         <dt>Uses</dt>
                     {% endif %}
@@ -45,10 +45,10 @@
             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                {% for tagName,tags in constant.tags if tagName not in ['link', 'see', 'var', 'deprecated', 'uses'] %}
+                {% for tag_name, tags in constant.tags if tag_name not in ['link', 'see', 'var', 'deprecated', 'uses'] %}
                     <tr>
                         <th>
-                            {{ tagName }}
+                            {{ tag_name }}
                         </th>
                         <td>
                             {% for tag in tags %}
