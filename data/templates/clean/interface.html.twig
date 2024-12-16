@@ -1,54 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-{% block javascripts %}
-	<script type="text/javascript">
-		function loadExternalCodeSnippets() {
-Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-var src = pre.getAttribute('data-src').replace(/\\/g, '/');
-var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-var language = 'php';
-
-var code = document.createElement('code');
-code.className = 'language-' + language;
-
-pre.textContent = '';
-
-code.textContent = 'Loading…';
-
-pre.appendChild(code);
-
-var xhr = new XMLHttpRequest();
-
-xhr.open('GET', src, true);
-
-xhr.onreadystatechange = function () {
-if (xhr.readyState == 4) {
-
-if (xhr.status < 400 && xhr.responseText) {
-code.textContent = xhr.responseText;
-
-Prism.highlightElement(code);
-} else if (xhr.status >= 400) {
-code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-} else {
-code.textContent = '✖ Error: File does not exist, is empty or trying to view from localhost';
-}
-}
-};
-
-xhr.send(null);
-});
-}
-
-$(document).ready(function () {
-loadExternalCodeSnippets();
-});
-$('#source-view').on('shown', function () {
-loadExternalCodeSnippets();
-});
-	</script>
-{% endblock %}
-
 {% block content %}
 	<section class="row-fluid">
 		<div class="span2 sidebar">
